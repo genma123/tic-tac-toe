@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {List, Map, fromJS} from 'immutable';
 
 function Square(props) {
   return (
@@ -9,27 +10,42 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  /* renderSquare(i) {
+  /* constructor() {
+    super();
+    this.state = {
+      squares: Array(9).fill(null),
+      xIsNext: true,
+    };
+  } */
+  renderSquare(i) {
     const squares = this.props.squares;
     return <Square value={squares[i]} onClick={() => this.props.onClick(i)} />;
-  } */
+  }
   render() {
+    /* const winner = calculateWinner(this.props.squares);
+
+    let status;
+    if (winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    } */
     return (
       <div>
         <div className="board-row">
-          <Square value={this.props.squares[0]} onClick={() => this.props.onClick(0)} />
-          <Square value={this.props.squares[1]} onClick={() => this.props.onClick(1)} />
-          <Square value={this.props.squares[2]} onClick={() => this.props.onClick(2)} />
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
         </div>
         <div className="board-row">
-          <Square value={this.props.squares[3]} onClick={() => this.props.onClick(3)} />
-          <Square value={this.props.squares[4]} onClick={() => this.props.onClick(4)} />
-          <Square value={this.props.squares[5]} onClick={() => this.props.onClick(5)} />
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
         </div>
         <div className="board-row">
-          <Square value={this.props.squares[6]} onClick={() => this.props.onClick(6)} />
-          <Square value={this.props.squares[7]} onClick={() => this.props.onClick(7)} />
-          <Square value={this.props.squares[8]} onClick={() => this.props.onClick(8)} />
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
         </div>
       </div>
     );
@@ -39,29 +55,42 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state = fromJS({
+      history: [{
+        squares: Array(9).fill(null),
+        moveNumber: 0,
+      }],
+      stepNumber: 0
+    });
+    /* this.state = {
       history: [{
         squares: Array(9).fill(null),
         moveNumber: 0,
       }],
       stepNumber: 0,
-    };
+    }; */
   }
   handleClick(i) {
-    var history = this.state.history.slice(0, this.state.stepNumber + 1);
-    var current = history[history.length - 1];
-    const squares = current.squares.slice();
+    var history = this.state.get('history');
+        // this.state.history.slice(0, this.state.stepNumber + 1);
+    var current = history.last() /* [history.length - 1] */;
+    var squares = current.get('squares') /* current.squares.slice() */;
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = (this.state.stepNumber + 1) % 2 ? 'X' : 'O';
-    this.setState({
-      history: history.concat([{
-        squares: squares,
-        moveNumber: history.length,
-      }]),
-      stepNumber: history.length,
-    });
+    var stepNum = this.state.get('stepNumber');
+    var squares = squares.set(i, (stepNumber + 1) % 2 ? 'X' : 'O');
+    var histSize =  history.size();
+    this.setState(
+      Map({
+        history: history.push(
+          [{
+            squares: squares,
+            moveNumber: histSize}]
+          ),
+        stepNumber: histSize
+      })
+    );
   }
   jumpTo(i) {
     console.log(i);
