@@ -1,3 +1,6 @@
+DISCLAIMER: THIS IS NOT WORKING CODE. IT SHOULD BE PRIVATE, BUT I WISH TO BE ABLE TO LOOK AT IT WITHOUT THE NEED TO LOG IN.
+I HOPE SOME DAY IT WILL BE WORKING.
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
