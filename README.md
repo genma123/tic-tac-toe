@@ -3,6 +3,9 @@ I HOPE SOME DAY IT WILL BE WORKING.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+TO USER REDUX, I WILL HAVE TO FOLLOW THE EXAMPLE FROM THIS REPOSITORY:
+https://github.com/tstringer/create-react-app-with-redux
+
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 

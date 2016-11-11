@@ -37,16 +37,26 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(props) {
+    super(props);
+    const { gameState, playSquare, jumpTo } = props;
+    /* this.state = gameState.toJS() {
       history: [{
         squares: Array(9).fill(null),
         moveNumber: 0,
       }],
       stepNumber: 0,
-    };
+    } */;
   }
+
+  // TODO define new function based on redux example with actions
+  handleClick2(i) {
+    // need to identify player as a function of stepNumber
+    playSquare(i, 'X' );
+    // determine on which square the click occurred, then call playSquare
+    // const toggleClick = id => event => toggleTodo(id);
+  }
+
   handleClick(i) {
     var history = this.state.history.slice(0, this.state.stepNumber + 1);
     var current = history[history.length - 1];
