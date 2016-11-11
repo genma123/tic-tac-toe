@@ -1,32 +1,25 @@
 import { List, Map } from 'immutable';
 
-export default function(state, action) {
+export default function(gameState, action) {
   switch(action.type) {
     case 'PLAY_SQUARE':
-      var i = action.get('payload').get('index');
-      var current = history.last() /* [history.length - 1] */;
-      var squares = current.get('squares') /* current.squares.slice() */;
-      if (calculateWinner(squares) || squares[i]) {
-        return;
-      }
-      var stepNum = this.state.get('stepNumber');
-      var squares = squares.set(i, (stepNumber + 1) % 2 ? 'X' : 'O');
-      var histSize =  history.size();
-      return Map({
-        history: history.push(
-          [{
-            squares: squares,
-            moveNumber: histSize}]
-          ),
-        stepNumber: histSize
-      });
+      var i = action.payload.index;
+      var history = gameState.get('history');
+      var squares = history.last().get('squares');
+      squares = squares.set(i, action.payload.player);
+      var  stepNumber = gameState.get('stepNumber');
+      stepNumber++;
+      history = history.push(Map({squares: squares, moveNumber: stepNumber}));
+      return gameState.set('history', history).set('stepNumber', stepNumber);
     case 'JUMP_TO':
       // ...
+      return gameState;
     default:
-      return state;
+      return gameState;
   }
 }
 
+// for possible future use
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
