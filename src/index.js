@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import Immutable from 'immutable';
 // import App from './App';
-import Game from './Game';
+// import Game from './Game';
+import reducer from './reducer';
+import WrappedGame from './containers';
+
 import './index.css';
 
 const initGameState = Immutable.fromJS(
@@ -13,7 +18,12 @@ const initGameState = Immutable.fromJS(
     stepNumber: 0
   });
 
+const store = createStore(reducer, initGameState);
+
 ReactDOM.render(
-  <Game gameState={initGameState} />,
+  <Provider store={store}>
+    <WrappedGame />
+    {/* <Game gameState={store.getState()} />, */}
+  </Provider>,
   document.getElementById('container')
 );

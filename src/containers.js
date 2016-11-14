@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { playSquare, jumpTo } from './actions';
-import { Game } from './Game';
+import * as Game from './Game';
+// import { Game } from './Game';
 
-export const Game = connect(
+export const WrappedGame = connect(
   function mapStateToProps(state) {
     return { gameState: state };
-  }
+  },
 
   function mapDispatchToProps(dispatch) {
     return {
@@ -15,4 +16,4 @@ export const Game = connect(
 
   }
 
-)(Game);
+)(Game.Game);

@@ -39,6 +39,7 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    console.log("props: " + JSON.stringify(props));
     const { gameState, playSquare, jumpTo } = props;
     /* this.state = gameState.toJS() {
       history: [{
@@ -52,12 +53,14 @@ class Game extends React.Component {
   // TODO define new function based on redux example with actions
   handleClick2(i) {
     // need to identify player as a function of stepNumber
-    playSquare(i, 'X' );
+    var stepNumber = this.gameState.get('stepNumber');
+    var player = (stepNumber + 1) % 2 ? 'X' : 'O';
+    this.playSquare(i, player );
     // determine on which square the click occurred, then call playSquare
     // const toggleClick = id => event => toggleTodo(id);
   }
 
-  handleClick(i) {
+  /* handleClick(i) {
     var history = this.state.history.slice(0, this.state.stepNumber + 1);
     var current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -79,9 +82,9 @@ class Game extends React.Component {
       stepNumber: i
 
     });
-  }
+  } */
   render() {
-    const history = this.state.history;
+    /* const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
     let status;
@@ -99,20 +102,20 @@ class Game extends React.Component {
         <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a>
         </li>
       );
-    });
+    }); */
 
     return (
       <div className="game">
         <div className="game-board">
           <Board
-            squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
+            squares={this.props.gameState.get('history').last().get('squares')}
+            onClick={(i) => this.props.handleClick2(i)}
           />
         </div>
-        <div className="game-info">
+        {/* <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
-        </div>
+        </div> */}
       </div>
     );
   }

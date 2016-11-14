@@ -33,7 +33,7 @@ function calculateWinner(squares) {
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (squares.get(a) && squares.get(a) === squaresget(b) && squares.get(a) === squares.get(c)) {
+    if (squares.get(a) && squares.get(a) === squares.get(b) && squares.get(a) === squares.get(c)) {
       return squares.get(a);
     }
   }
