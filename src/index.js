@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 // import App from './App';
 // import Game from './Game';
 import reducer from './reducer';
-import WrappedGame from './containers';
+import { WrappedGame } from './containers';
 
 import './index.css';
 

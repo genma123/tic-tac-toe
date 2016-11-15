@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { playSquare, jumpTo } from './actions';
-import * as Game from './Game';
-// import { Game } from './Game';
+import Game from './Game';
 
 export const WrappedGame = connect(
   function mapStateToProps(state) {
@@ -16,4 +15,4 @@ export const WrappedGame = connect(
 
   }
 
-)(Game.Game);
+)(Game);
