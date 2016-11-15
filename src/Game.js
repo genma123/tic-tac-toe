@@ -53,9 +53,10 @@ class Game extends React.Component {
   // TODO define new function based on redux example with actions
   handleClick2(i) {
     // need to identify player as a function of stepNumber
-    var stepNumber = this.gameState.get('stepNumber');
+    var stepNumber = this.props.gameState.get('stepNumber');
     var player = (stepNumber + 1) % 2 ? 'X' : 'O';
-    this.playSquare(i, player );
+    console.log("player: " + player + ", squares: " + JSON.stringify(this.props.gameState.get('history').last().get('squares')));
+    this.props.playSquare(i, player );
     // determine on which square the click occurred, then call playSquare
     // const toggleClick = id => event => toggleTodo(id);
   }
@@ -108,8 +109,8 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            squares={this.props.gameState.get('history').last().get('squares')}
-            onClick={(i) => this.props.handleClick2(i)}
+            squares={this.props.gameState.get('history').last().get('squares').toJS()}
+            onClick={(i) => this.handleClick2(i)}
           />
         </div>
         {/* <div className="game-info">
