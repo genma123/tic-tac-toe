@@ -39,45 +39,26 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    console.log("props: " + JSON.stringify(props));
+    // console.log("props: " + JSON.stringify(props));
     const { gameState, playSquare, jumpTo } = props;
-    /* this.state = gameState.toJS() {
-      history: [{
-        squares: Array(9).fill(null),
-        moveNumber: 0,
-      }],
-      stepNumber: 0,
-    } */;
   }
 
   // TODO define new function based on redux example with actions
-  handleClick2(i) {
+  handleClick(i) {
     // need to identify player as a function of stepNumber
+    const squares = this.props.gameState.get('history').last().get('squares').toJS();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
     var stepNumber = this.props.gameState.get('stepNumber');
     var player = (stepNumber + 1) % 2 ? 'X' : 'O';
-    console.log("player: " + player + ", squares: " + JSON.stringify(this.props.gameState.get('history').last().get('squares')));
+    // console.log("player: " + player + ", squares: " + JSON.stringify(this.props.gameState.get('history').last().get('squares')));
     this.props.playSquare(i, player );
     // determine on which square the click occurred, then call playSquare
     // const toggleClick = id => event => toggleTodo(id);
   }
 
-  /* handleClick(i) {
-    var history = this.state.history.slice(0, this.state.stepNumber + 1);
-    var current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = (this.state.stepNumber + 1) % 2 ? 'X' : 'O';
-    this.setState({
-      history: history.concat([{
-        squares: squares,
-        moveNumber: history.length,
-      }]),
-      stepNumber: history.length,
-    });
-  }
-  jumpTo(i) {
+  /* jumpTo(i) {
     console.log(i);
     this.setState({
       stepNumber: i
@@ -87,14 +68,16 @@ class Game extends React.Component {
   render() {
     /* const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = calculateWinner(current.squares); */
+    const squares = this.props.gameState.get('history').last().get('squares').toJS();
+    const winner = calculateWinner(squares);
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + ((this.state.stepNumber + 1) % 2 ? 'X' : 'O');
+      status = 'Next player: ' + ((this.props.gameState.get('stepNumber') + 1) % 2 ? 'X' : 'O');
     }
-    const moves = history.map((step, i) => {
+    /* const moves = history.map((step, i) => {
       const desc = step.moveNumber ?
         'Move #' + step.moveNumber :
         'Game start';
@@ -109,14 +92,14 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            squares={this.props.gameState.get('history').last().get('squares').toJS()}
-            onClick={(i) => this.handleClick2(i)}
+            squares={squares}
+            onClick={(i) => this.handleClick(i)}
           />
         </div>
-        {/* <div className="game-info">
+        <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
-        </div> */}
+          {/* <ol>{moves}</ol> */}
+        </div>
       </div>
     );
   }
