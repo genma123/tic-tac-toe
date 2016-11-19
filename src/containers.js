@@ -9,8 +9,8 @@ export const WrappedGame = connect(
 
   function mapDispatchToProps(dispatch) {
     return {
-      playSquare: (index, player) => dispatch(playSquare(index, player))
-      // jummpTo TODO
+      playSquare: (index, player) => dispatch(playSquare(index, player)),
+      jumpTo: index => dispatch(jumpTo(index))
     }
 
   }

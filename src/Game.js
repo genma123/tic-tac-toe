@@ -58,6 +58,10 @@ class Game extends React.Component {
     // const toggleClick = id => event => toggleTodo(id);
   }
 
+  handleClick2(i) {
+    console.log("in handleClick2, i: " + i);
+    this.props.jumpTo(i);
+  }
   /* jumpTo(i) {
     console.log(i);
     this.setState({
@@ -66,10 +70,9 @@ class Game extends React.Component {
     });
   } */
   render() {
-    /* const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares); */
-    const squares = this.props.gameState.get('history').last().get('squares').toJS();
+    const history = this.props.gameState.get('history');
+    const stepNumber = this.props.gameState.get('stepNumber');
+    const squares = history.get(stepNumber).get('squares').toJS();
     const winner = calculateWinner(squares);
     let status;
     if (winner) {
@@ -77,16 +80,17 @@ class Game extends React.Component {
     } else {
       status = 'Next player: ' + ((this.props.gameState.get('stepNumber') + 1) % 2 ? 'X' : 'O');
     }
-    /* const moves = history.map((step, i) => {
-      const desc = step.moveNumber ?
-        'Move #' + step.moveNumber :
+    const moves = history.map((step, i) => {
+      const desc = step.get('moveNumber') ?
+        'Move #' + step.get('moveNumber') :
         'Game start';
       return (
-        <li key={step.moveNumber}>
-        <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a>
+        <li key={step.get('moveNumber')}>
+        {/* <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a> */}
+        <a href="#" onClick={() => this.handleClick2(i)}>{desc}</a>
         </li>
       );
-    }); */
+    });
 
     return (
       <div className="game">
@@ -98,7 +102,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          {/* <ol>{moves}</ol> */}
+          <ol>{moves}</ol>
         </div>
       </div>
     );
