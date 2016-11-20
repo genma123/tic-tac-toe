@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { playSquare, jumpTo } from './actions';
+import { playSquare, visitMove } from './actions';
 import Game from './Game';
 
 export const WrappedGame = connect(
@@ -10,7 +10,7 @@ export const WrappedGame = connect(
   function mapDispatchToProps(dispatch) {
     return {
       playSquare: (index, player) => dispatch(playSquare(index, player)),
-      jumpTo: index => dispatch(jumpTo(index))
+      visitMove: index => dispatch(visitMove(index))
     }
 
   }

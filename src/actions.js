@@ -8,9 +8,9 @@ export function playSquare(index, player) {
   };
 }
 
-export function jumpTo(index) {
+export function visitMove(index) {
   return {
-    type: 'JUMP_TO',
+    type: 'VISIT_MOVE',
     payload: {
       index: index
     }

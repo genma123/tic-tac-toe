@@ -40,7 +40,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     // console.log("props: " + JSON.stringify(props));
-    const { gameState, playSquare, jumpTo } = props;
+    const { gameState, playSquare, visitMove } = props;
   }
 
   // TODO define new function based on redux example with actions
@@ -58,17 +58,10 @@ class Game extends React.Component {
     // const toggleClick = id => event => toggleTodo(id);
   }
 
-  handleClick2(i) {
-    console.log("in handleClick2, i: " + i);
-    this.props.jumpTo(i);
+  jumpTo(i) {
+    // console.log("in jumpTo, i: " + i);
+    this.props.visitMove(i);
   }
-  /* jumpTo(i) {
-    console.log(i);
-    this.setState({
-      stepNumber: i
-
-    });
-  } */
   render() {
     const history = this.props.gameState.get('history');
     const stepNumber = this.props.gameState.get('stepNumber');
@@ -87,7 +80,7 @@ class Game extends React.Component {
       return (
         <li key={step.get('moveNumber')}>
         {/* <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a> */}
-        <a href="#" onClick={() => this.handleClick2(i)}>{desc}</a>
+        <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a>
         </li>
       );
     });

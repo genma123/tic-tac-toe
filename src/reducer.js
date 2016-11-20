@@ -12,8 +12,8 @@ export default function(gameState, action) {
       stepNumber++;
       history = history.push(Map({squares: squares, moveNumber: stepNumber}));
       return gameState.set('history', history).set('stepNumber', stepNumber);
-    case 'JUMP_TO':
-    // console.log("in JUMP_TO action, index: " + action.payload.index);
+    case 'VISIT_MOVE':
+    // console.log("in VISIT_MOVE action, index: " + action.payload.index);
       return gameState.set('stepNumber', action.payload.index);
       /* var gs = gameState.set('stepNumber', action.payload.index);
       console.log(JSON.stringify(gs.toJS(), null, 2));
