@@ -8,32 +8,22 @@ function Square(props) {
   );
 }
 
-class Board extends React.Component {
-  /* renderSquare(i) {
-    const squares = this.props.squares;
-    return <Square value={squares[i]} onClick={() => this.props.onClick(i)} />;
-  } */
-  render() {
+function Board(props) {
+    const squares = props.squares;
+    const onClick = props.onClick;
     return (
       <div>
         <div className="board-row">
-          <Square value={this.props.squares[0]} onClick={() => this.props.onClick(0)} />
-          <Square value={this.props.squares[1]} onClick={() => this.props.onClick(1)} />
-          <Square value={this.props.squares[2]} onClick={() => this.props.onClick(2)} />
+          {squares.slice(0, 3).map((square, k) => <Square key={k} value={square} onClick={() => onClick((k))} />)}
         </div>
         <div className="board-row">
-          <Square value={this.props.squares[3]} onClick={() => this.props.onClick(3)} />
-          <Square value={this.props.squares[4]} onClick={() => this.props.onClick(4)} />
-          <Square value={this.props.squares[5]} onClick={() => this.props.onClick(5)} />
+          {squares.slice(3, 6).map((square, k) => <Square key={k+3} value={square} onClick={() => onClick((k+3))} />)}
         </div>
         <div className="board-row">
-          <Square value={this.props.squares[6]} onClick={() => this.props.onClick(6)} />
-          <Square value={this.props.squares[7]} onClick={() => this.props.onClick(7)} />
-          <Square value={this.props.squares[8]} onClick={() => this.props.onClick(8)} />
+          {squares.slice(6, 9).map((square, k) => <Square key={k+6} value={square} onClick={() => onClick((k+6))} />)}
         </div>
       </div>
     );
-  }
 }
 
 class Game extends React.Component {
@@ -52,14 +42,10 @@ class Game extends React.Component {
     }
     var stepNumber = this.props.gameState.get('stepNumber');
     var player = (stepNumber + 1) % 2 ? 'X' : 'O';
-    // console.log("player: " + player + ", squares: " + JSON.stringify(this.props.gameState.get('history').last().get('squares')));
     this.props.playSquare(i, player );
-    // determine on which square the click occurred, then call playSquare
-    // const toggleClick = id => event => toggleTodo(id);
   }
 
   jumpTo(i) {
-    // console.log("in jumpTo, i: " + i);
     this.props.visitMove(i);
   }
   render() {
@@ -79,7 +65,6 @@ class Game extends React.Component {
         'Game start';
       return (
         <li key={step.get('moveNumber')}>
-        {/* <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a> */}
         <a href="#" onClick={() => this.jumpTo(i)}>{desc}</a>
         </li>
       );
