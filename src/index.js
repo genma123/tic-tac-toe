@@ -10,7 +10,7 @@ import './index.css';
 
 const initGameState = Immutable.fromJS(
   { history: [{
-      squares: Array(9).fill(null),
+      squares: [ null, null, null, null, null, null, null, null, null ], // Array(9).fill(null),
       moveNumber: 0,
     }],
     stepNumber: 0
